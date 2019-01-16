@@ -1,11 +1,19 @@
 begin() {
     echo
     read -p 'How many digits [0-5]: ' dig
+
     alg=$[10 ** $dig]
-    let min=$[10 ** $dig-2]
-    let num1=$RANDOM%$alg+min
-    let num2=$RANDOM%$alg+min
+    let min=$[10 ** ($dig-1)]
+    let max=$alg-$min
+
+    let num1=$RANDOM%$max
+    let num1+=$min
+
+    let num2=$RANDOM%$max
+    let num2+=$min
+
     let res=$num1+$num2
+
     if [ $dig -ne 0 ]
     then    
         func
