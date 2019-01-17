@@ -12,8 +12,6 @@ begin() {
     let num2=$RANDOM%$max
     let num2+=$min
 
-    let res=$num1+$num2
-
     if [ $dig -ne 0 ]
     then    
         func
@@ -23,8 +21,31 @@ begin() {
 }
 
 func() {
-    echo $num1 + $num2:  
-    read pal
+
+    read -p '-, +, / or * : ' op
+
+    if [ "$op" = "+" ]
+    then
+        let res=$num1+$num2
+        echo $num1 + $num2:  
+        read pal
+    elif [ "$op" = "-" ]
+    then
+        let res=$num1-$num2
+        echo $num1 - $num2:  
+        read pal
+    elif [ "$op" = "*" ]
+    then
+        let res=$num1*$num2
+        echo $num1 * $num2:  
+        read pal
+    elif [ "$op" = "/" ]
+    then
+        let res=$num1/$num2
+        echo $num1 / $num2:  
+        read pal
+    fi
+
     if [ $pal -ne $res ]
     then   
         echo Incorrect
