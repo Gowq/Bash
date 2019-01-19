@@ -1,6 +1,15 @@
 begin() {
-    echo
     read -p 'How many digits [0-5]: ' dig
+
+    if [ $dig -ne 0 ]
+    then    
+        rand
+    else 
+        exit
+    fi
+}
+
+rand() {
 
     alg=$[10 ** $dig]
     let min=$[10 ** ($dig-1)]
@@ -12,17 +21,17 @@ begin() {
     let num2=$RANDOM%$max
     let num2+=$min
 
-    if [ $dig -ne 0 ]
-    then    
-        func
-    else 
-        exit
-    fi
+    func
 }
 
-func() {
+func() { 
 
-    read -p '-, +, / or * : ' op
+    if [ "$op" = "" ]
+    then
+        read -p '-, +, / or * : ' op
+    else    
+        echo 
+    fi
 
     if [ "$op" = "+" ]
     then
@@ -46,13 +55,19 @@ func() {
         read pal
     fi
 
-    if [ $pal -ne $res ]
+    if [ "$pal" = "" ]
+    then    
+        begin
+    fi
+
+    if [ "$pal" != "$res" ]
     then   
         echo Incorrect
         func
     else 
         echo Correct
-        begin
+        rand
     fi
 }
+
 begin
